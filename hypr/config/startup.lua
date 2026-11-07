@@ -6,5 +6,9 @@ hl.on("hyprland.start", function ()
 
     -- Wallpaper
     hl.exec_cmd("swaybg -i /home/laub/Images/walls/klein-1.png -m fill")
+
+    -- Waybar
+    hl.exec_cmd("waybar")
+
 end)
 
