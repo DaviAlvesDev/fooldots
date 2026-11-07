@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -e
+
+dotspath="/home/laub/foo/fooldots"
+
+usage() {
+    printf "Usage: $(basename "$0") \n     -e <repo-rpath> , (open editor in fooldots)\n     -m <source-path> <repo-rpath> , (move config file to fooldots and create a symlink)\n     -n <file-repo-rpath> <link-path> , (create symlink to new config file in fooldots)\n     -s (edit script source code)\n      <git-args...>\n" >&2
+    exit 2
+}
+
+case "${1-}" in
+    -e)
+        (($# == 2)) || usage
+        exec nvim -- "$dotspath/$2"
+        ;;
+
+    -m)
+        (($# == 3)) || usage
+        src=$2
+        target="$dotspath/$3"
+
+        mkdir -p "$(dirname "$target")"
+        mv -- "$src" "$target"
+        ln -s -- "$target" "$src"
+        ;;
+
+    -n)
+        (($# == 3)) || usage
+        filepath="$dotspath/$2"
+	link="$3"
+
+        mkdir -p -- "$(dirname "$filepath")"
+        touch -- "$filepath"
+
+        if [[ -e "$link" && ! -L "$link" ]]; then
+            echo "Refusing to replace existing non-symlink: $link" >&2
+            exit 1
+        fi
+
+        ln -sfn -- "$filepath" "$link"
+        nvim -- "$filepath"
+        ;;
+
+    -s)
+        exec nvim -- "$0"
+        ;;
+
+    *)
+    	(($#)) || usage
+        cd -- "$dotspath"
+        exec git "$@"
+        ;;
+esac
+
