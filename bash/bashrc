@@ -1,0 +1,15 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+	alias grep='grep --color=auto'
+PS1='[\u@\h \w]\$ '
+
+set bell-style none
+
+# Created by `pipx` on 2026-11-01 19:31:21
+export PATH="/home/laub/.local/bin:$PATH"

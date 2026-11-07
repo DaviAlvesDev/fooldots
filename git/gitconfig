@@ -1,0 +1,7 @@
+[user]
+	name = Laub
+	email = contactdavi2085@proton.me
+[advice]
+	defaultBranchName = false
+[core]
+	editor = nvim
