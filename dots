@@ -4,7 +4,7 @@ set -e
 dotspath="/home/laub/foo/fooldots"
 
 usage() {
-    printf "Usage: $(basename "$0") \n     -e <repo-rpath> , (open editor in fooldots)\n     -m <source-path> <repo-rpath> , (move config file to fooldots and create a symlink)\n     -f/d <file/dir-repo-rpath> <link-path> , (create symlink to new config file/directory in fooldots)\n     -s (edit script source code)\n      <git-args...>\n" >&2
+    printf "Usage: $(basename "$0") \n     -e <repo-rpath> , (open editor in fooldots)\n     -m <source-path> <repo-rpath> , (move config file to fooldots and create a symlink)\n     -f/d <file/dir-repo-rpath> <link-path> , (create symlink to new config file/directory in fooldots)\n     -s (edit script source code)\n     -b <external-commands...>\n      <git-args...>\n" >&2
     exit 2
 }
 
@@ -54,7 +54,11 @@ case "${1-}" in
     *)
     	(($#)) || usage
         cd -- "$dotspath"
-        exec git "$@"
+        if [ $1 == "-b" ]; then
+            exec "${@:2}"
+        else
+            exec git "$@"
+        fi
         ;;
 esac
 
