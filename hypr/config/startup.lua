@@ -9,6 +9,9 @@ hl.on("hyprland.start", function ()
 
     -- Waybar
     hl.exec_cmd("waybar")
+    
+    -- Clipboard
+    hl.exec_cmd("wl-paste --watch cliphist store")
 
 end)
 
