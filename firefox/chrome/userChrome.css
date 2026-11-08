@@ -1,0 +1,13 @@
+#PersonalToolbar:not([customizing="true"]):not([collapsed="true"]) {
+  visibility: collapse !important;
+}
+
+#ipprotection-button,
+#fxa-toolbar-menu-button,
+#reset-pbm-toolbar-button,
+#alltabs-button,
+#smartwindow-group-tabs-button,
+#ai-window-toggle {
+  display: none !important;
+}
+
