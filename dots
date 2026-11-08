@@ -4,7 +4,7 @@ set -e
 dotspath="/home/laub/foo/fooldots"
 
 usage() {
-    printf "Usage: $(basename "$0") \n     -e <repo-rpath> , (open editor in fooldots)\n     -m <source-path> <repo-rpath> , (move config file to fooldots and create a symlink)\n     -n <file-repo-rpath> <link-path> , (create symlink to new config file in fooldots)\n     -s (edit script source code)\n      <git-args...>\n" >&2
+    printf "Usage: $(basename "$0") \n     -e <repo-rpath> , (open editor in fooldots)\n     -m <source-path> <repo-rpath> , (move config file to fooldots and create a symlink)\n     -f/d <file/dir-repo-rpath> <link-path> , (create symlink to new config file/directory in fooldots)\n     -s (edit script source code)\n      <git-args...>\n" >&2
     exit 2
 }
 
@@ -24,21 +24,27 @@ case "${1-}" in
         ln -s -- "$target" "$src"
         ;;
 
-    -n)
+    -f | -d)
         (($# == 3)) || usage
-        filepath="$dotspath/$2"
-	link="$3"
+ 
 
-        mkdir -p -- "$(dirname "$filepath")"
-        touch -- "$filepath"
+        path="$dotspath/$2"
+	    link="$3"
+
+        if [ $1 == -f ]; then
+            mkdir -p -- "$(dirname "$path")"
+            touch -- "$path"
+        else 
+            mkdir -p -- "$path"
+        fi
 
         if [[ -e "$link" && ! -L "$link" ]]; then
             echo "Refusing to replace existing non-symlink: $link" >&2
             exit 1
         fi
 
-        ln -sfn -- "$filepath" "$link"
-        nvim -- "$filepath"
+        ln -sfn -- "$path" "$link"
+        nvim -- "$path"
         ;;
 
     -s)
