@@ -10,7 +10,7 @@ usage() {
 
 case "${1-}" in
     -e)
-        (($# == 2)) || usage
+        (($# == 2)) || exec nvim -- "$dotspath"
         exec nvim -- "$dotspath/$2"
         ;;
 
