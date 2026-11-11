@@ -7,3 +7,5 @@ vim.o.smartindent = true
 vim.o.wrap = true
 vim.o.cursorline = true 
 vim.o.termguicolors = true 
+
+vim.g.mapleader = " "
