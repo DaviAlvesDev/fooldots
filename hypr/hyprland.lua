@@ -65,6 +65,7 @@ local clipboard_manager = "cliphist list | rofi -dmenu -display-columns 2 | clip
 ----------------
 
 local mainMod = "SUPER"
+local Shift   = " + SHIFT"
 
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(file_manager))
@@ -75,7 +76,11 @@ hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(clipboard_manager))
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
 hl.bind(mainMod .. " + J", hl.dsp.layout("move -col"))
 hl.bind(mainMod .. " + K", hl.dsp.layout("move +col"))
+hl.bind(mainMod .. Shift .. " + J", hl.dsp.layout("swapcol l"))
+hl.bind(mainMod .. Shift .. " + K", hl.dsp.layout("swapcol r"))
 hl.bind(mainMod .. " + P", hl.dsp.layout("promote"))
+hl.bind(mainMod .. " + O", hl.dsp.layout("colresize 1.0"))
+
 
 hl.bind(
     mainMod .. " + M", 
