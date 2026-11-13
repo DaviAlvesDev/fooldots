@@ -32,16 +32,6 @@ vim.api.nvim_set_keymap(
 )
 
 vim.api.nvim_set_keymap(
-    "n", Leader .. "w", exec_cmd("w"),
-    base_options
-)
-
-vim.api.nvim_set_keymap(
-    "n", Leader .. "q", exec_cmd("q"),
-    base_options 
-)
-
-vim.api.nvim_set_keymap(
     "n", Esc, exec_cmd("noh"),
     base_options
 )
